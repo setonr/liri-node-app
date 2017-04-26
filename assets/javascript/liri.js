@@ -32,7 +32,7 @@ if (command === "my-tweets") {
 		if (err) {
 			console.log("Error occurred: " + err);
 		} else {
-			console.log("Artist: " + data.tracks.items[0].artists.name);
+			console.log("Artist: " + data.tracks.items[0].artists[0].name);
 			console.log("Song Title: " + data.tracks.items[0].name);
 			console.log("Preview Link: " + data.tracks.items[0].preview_url);
 			console.log("Album: " + data.tracks.items[0].album.name);
