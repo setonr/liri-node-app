@@ -31,13 +31,13 @@ if (command === "my-tweets") {
 	spotify.search({type: "track", query: title}, function(err, data) {
 		if (err) {
 			console.log("Error occurred: " + err);
-		} else
-		console.log("Test: " + data.tracks.items[0].album.artists.name);
-		// console.log("Artist: " + data.tracks.items.artists.name);
-		// console.log("Song Title: " + data.tracks.items.name);
-		// console.log("Preview Link: " + data.tracks.items.preview_url);
-		console.log("Album: " + data.tracks.items[0].album.name);
-		// console.log(JSON.stringify(data, null, 2));
+		} else {
+			console.log("Artist: " + data.tracks.items[0].artists.name);
+			console.log("Song Title: " + data.tracks.items[0].name);
+			console.log("Preview Link: " + data.tracks.items[0].preview_url);
+			console.log("Album: " + data.tracks.items[0].album.name);
+		}
+		
 	});
 
 } else if (command === "movie-this") {
@@ -56,7 +56,7 @@ if (command === "my-tweets") {
 			console.log("Language: " + JSON.parse(body).Language);
 			console.log("Synopsis: " + JSON.parse(body).Plot);
 			console.log("Lead Actors: " + JSON.parse(body).Actors);
-			//console.log("Read more at Rotten Tomatoes: " + );
+			console.log("Read more at Rotten Tomatoes: " + JSON.parse(body).tomatoURL);
 		}
 	})
 
@@ -64,7 +64,20 @@ if (command === "my-tweets") {
 } else if (command === "do-what-it-says") {
 	fs.readFile("random.txt", "utf8", function(error, data) {
 		var dataArray = data.split(",");
-		dataArray[0] = command;
-		dataArray[1] = title;
-	})
+		command = dataArray[0];
+		title = dataArray[1];
+
+		spotify.search({type: "track", query: title}, function(err, data) {
+		if (err) {
+			console.log("Error occurred: " + err);
+		} else {
+			console.log("Artist: " + data.tracks.items[0].artists.name);
+			console.log("Song Title: " + data.tracks.items[0].name);
+			console.log("Preview Link: " + data.tracks.items[0].preview_url);
+			console.log("Album: " + data.tracks.items[0].album.name);
+		}
+	});
+});
+
 }
+
